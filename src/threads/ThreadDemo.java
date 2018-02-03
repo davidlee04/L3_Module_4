@@ -1,5 +1,10 @@
 package threads;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+
 import org.jointheleague.graphical.robot.Robot;
 
 public class ThreadDemo {
@@ -19,8 +24,15 @@ public class ThreadDemo {
 			timmy.moveTo(400, 700);
 			tammy.moveTo(800, 700);
 			sammy.moveTo(1200, 700);
+		
 			
-			new Thread(()->timmy.move(400)).start();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					timmy.move(400);
+				}
+			}).start();
+			
 			new Thread(()->tammy.move(400)).start();
 			new Thread(()->sammy.move(400)).start();
 			
