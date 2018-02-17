@@ -15,15 +15,61 @@ public class BruteForceCracker {
 	static long startTime;
 	static long endTime;
 	static float elapsedTime;
-	
+		
 	public static void main(String[] args) {
 		System.out.println("Starting Brute Force Checker");
-		startTime = System.currentTimeMillis();
 		
-		int ctr = 0;
-		while(!checkCode(ctr++));
+		new Thread(new Runnable() {
+			int ctr = 0;
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				startTime = System.currentTimeMillis();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if(ctr < (1/4)*(999999999)) {
+							while(!checkCode(ctr++));
+						}
+					}
+				}).start();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if((1/4)*(999999999) <= ctr && ctr < (1/2)*(999999999)) {
+							while(!checkCode(ctr++));
+						}
+					}
+				}).start();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if((1/2)*(999999999) <= ctr && ctr < (3/4)*(999999999)) {
+							while(!checkCode(ctr++));
+						}
+					}
+				}).start();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if((3/4)*(999999999) <= ctr && ctr < (1)*(999999999)) {
+							while(!checkCode(ctr++));
+						}
+					}
+				}).start();
 		
-		endTime = System.currentTimeMillis();
+				
+				
+				
+				endTime = System.currentTimeMillis();
+			}
+		}).start();
+		
 		elapsedTime = (float)(endTime - startTime);
 		elapsedTime /= 1000.f;
 		System.out.println("Total time taken: " + elapsedTime + " seconds");
